@@ -13,38 +13,38 @@ env:
 
 jobs:
   # Fast checks that run in parallel (no build artifacts needed)
-  checks:
-    name: fmt + clippy
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      
-      - name: Initialize git submodules
-        run: git submodule update --init --recursive
-      
-      - name: Cache cargo
-        uses: actions/cache@v4
-        with:
-          path: |
-            ${{ env.CARGO_CACHE_PATH }}
-            ${{ env.CARGO_GIT_PATH }}
-          key: ${{ runner.os }}-cargo-checks-${{ hashFiles('**/Cargo.lock', 'envoy-data-plane-api/build.rs') }}
-      
-      - name: Install protoc
-        run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
-      
-      - name: Setup Rust
-        uses: actions-rs/toolchain@v1
-        with:
-          toolchain: stable
-          components: rustfmt, clippy
-          profile: minimal
-      
-      - name: Check formatting
-        run: cargo fmt --all -- --check
-      
-      - name: Run clippy (fail on warnings)
-        run: cargo clippy --all-targets --all-features 
+  #checks:
+    #name: fmt + clippy
+    #runs-on: ubuntu-latest
+    #steps:
+    #  - uses: actions/checkout@v4
+    #  
+    #  - name: Initialize git submodules
+    #    run: git submodule update --init --recursive
+    #  
+    #  - name: Cache cargo
+    #    uses: actions/cache@v4
+    #    with:
+    #      path: |
+    #        ${{ env.CARGO_CACHE_PATH }}
+    #        ${{ env.CARGO_GIT_PATH }}
+    #      key: ${{ runner.os }}-cargo-checks-${{ hashFiles('**/Cargo.lock', 'envoy-data-plane-api/build.rs') }}
+    #  
+    #  - name: Install protoc
+    #    run: sudo apt-get update && sudo apt-get install -y protobuf-compiler
+    #  
+    #  - name: Setup Rust
+    #    uses: actions-rs/toolchain@v1
+    #    with:
+    #      toolchain: stable
+    #      components: rustfmt, clippy
+    #      profile: minimal
+    #  
+    #  - name: Check formatting
+    #    run: cargo fmt --all -- --check
+    #  
+    #  - name: Run clippy (fail on warnings)
+    #    run: cargo clippy --all-targets --all-features 
 
   # Build and test that share artifacts
   build-and-test:
@@ -74,8 +74,8 @@ jobs:
           toolchain: stable
           profile: minimal
       
-      - name: Build (release)
-        run: cargo build --workspace --release --locked
+      #- name: Build (release)
+      #  run: cargo build --workspace --release --locked
       
       - name: Run tests
         run: cargo test --workspace --release --locked

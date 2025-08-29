@@ -542,7 +542,7 @@ mod lrumap {
     }
 
     // TODO: understand why tests are failing in CI (github)
-    #[cfg(any())]
+    #[cfg(test)]
     mod lrumap_tests {
         use std::{
             collections::HashMap,
@@ -595,14 +595,16 @@ mod lrumap {
 
                 let mut values_iter = self.map.into_iter();
                 let mut expected_iter = keys.iter();
+                let mut i = 0;
                 loop {
                     match (values_iter.next(), expected_iter.next()) {
-                        (Some(value), Some(expected)) => {
-                            assert_eq!(value, expected, "expected same map order: {}", error_message)
+                        pair@(Some(value), Some(expected)) => {
+                            assert_eq!(value, expected, "expected same map order: {} (index:{i}, map_len:{}, keys:{}, {pair:?})", error_message, self.map.len(), keys.len())
                         },
                         (None, None) => break,
-                        _ => panic!("expected same map values: {}", error_message),
+                        pair => panic!("expected same map values: {} (index:{i}, map_len:{}, keys:{}, {pair:?})", error_message, self.map.len(), keys.len()),
                     }
+                    i += 1;
                 }
             }
         }
