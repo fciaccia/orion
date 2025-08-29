@@ -13,7 +13,7 @@ env:
 
 jobs:
   # Fast checks that run in parallel (no build artifacts needed)
-  checks:
+  #checks:
     #name: fmt + clippy
     #runs-on: ubuntu-latest
     #steps:
