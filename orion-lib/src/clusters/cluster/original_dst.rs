@@ -602,7 +602,7 @@ mod lrumap {
                             assert_eq!(value, expected, "expected same map order: {} (index:{i}, map_len:{}, keys:{}, {pair:?})", error_message, self.map.len(), keys.len())
                         },
                         (None, None) => break,
-                        pair => panic!("expected same map values: {} (index:{i}, map_len:{}, keys:{}, {pair:?})", error_message, self.map_len(), keys.len()),
+                        pair => panic!("expected same map values: {} (index:{i}, map_len:{}, keys:{}, {pair:?})", error_message, self.map.len(), keys.len()),
                     }
                     i += 1;
                 }
