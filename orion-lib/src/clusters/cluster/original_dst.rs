@@ -542,7 +542,7 @@ mod lrumap {
     }
 
     // TODO: understand why tests are failing in CI (github)
-    #[cfg(any())]
+    #[cfg(test)]
     mod lrumap_tests {
         use std::{
             collections::HashMap,
